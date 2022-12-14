@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info: 
+  version: 0.1.0
+  title: LinkShortener
+  description: A simple API for a link shortener just like bitly hehe
+paths:
+  /links/create:
+    post:
+      description: creates a short link 
+      requestBody:
+        description: "the redirected link and some additional properties such as
+        lifetime - how long the redirect is active, collect - list of metrics that should be collected"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                redirect: 
+                  type: string
+                lifetime: 
+                  type: number
+                collect: 
+                  type: array
+                  items: 
+                    type: string
+      responses:
+        '200':
+          description: OK - returns the shortened URL
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  url: 
+                    type: string
+                  metricsId:
+                    type: string
+                  redirectId:
+                    type: string
+        '400':
+          description: Bad Request - Client did a wrong type of request
+        '500':
+          description: Server has some internal error
+  
+  /metrics/{id}/show:
+    get:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID for the metrics to get
+      description: Shows some metrics about the route given the id
+      responses:
+        '200': 
+          description: OK - returns aggregated informations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  visitors:
+                    type: object
+                    properties:
+                      total: 
+                        type: number
+                      ios: 
+                        type: number
+                      android:
+                        type: number
+                      desktop:
+                        type: number
+        '404':
+          description: id does not exists
+        '500':
+          description: internal server error
+  /metrics/{id}/reset:
+    post:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID for the metrics to get
+      description: reset metrics about the route given the id
+      responses:
+        '200': 
+          description: OK 
+        '404':
+          description: id does not exists
+        '500':
+          description: internal server error    
+  
+  /go:
+    post: 
+      description: will reveal the redirect URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                urlId:
+                  type: string
+                os: 
+                  type: string
+      responses:
+        '200':
+          description: URL uses to redirect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url: 
+                    type: string
+        '404':
+          description: url does not exists
+        '500':
+          description: internal server error
+
+      
+      
+  
