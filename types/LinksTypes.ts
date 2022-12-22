@@ -1,7 +1,7 @@
 
 export interface redirectedLink {
     redirect: string;
-    lifetime: number;
+    lifetime: string;
     collect: string[];
   }
 

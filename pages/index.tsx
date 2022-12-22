@@ -1,12 +1,14 @@
 import { Button, FormControlLabel, FormGroup, Switch, TextField, Typography } from '@mui/material';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useState } from 'react';
+import { redirectedLink } from '../types/LinksTypes'
 
-function submit(input: String,
+
+function submit(input: string,
   metrics: boolean,
   del_: boolean,
   setResponse: (s: any) => void) {
-  const payload = {
+  const payload: redirectedLink = {
     redirect: input,
     lifetime: del_ ? "once" : "infinite",
     collect: metrics ? ["visitors", "os"] : []
