@@ -1,5 +1,5 @@
 
-export interface redirectedLink {
+export interface RedirectedLink {
     redirect: string;
     lifetime: string;
     collect: string[];
@@ -7,19 +7,19 @@ export interface redirectedLink {
 
 
 
-export interface shortenedURL {
+export interface ShortenedURL {
     url: string;
     metricsId: number;
     redirectId: string;
   }
 
 
-export interface idValue {
+export interface IdValue {
     id: number;
   } 
 
 
-export interface aggregatedInfo {
+export interface AggregatedInfo {
     visitors: {
         total: number;
         ios: number;
@@ -29,13 +29,13 @@ export interface aggregatedInfo {
   }
 
 
-export interface redirectedURL {
+export interface RedirectedURL {
     urlId: string;
     os: string;
   }
 
 
-export interface urlValue {
+export interface UrlValue {
     url: string;
   } 
 
