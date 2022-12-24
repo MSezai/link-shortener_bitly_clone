@@ -14,7 +14,7 @@ function generateString(length: number) {
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-
+    // add a check here to control that the generated number is not the same with the ones before, use maybe the db
     return result;
 }
 
@@ -26,14 +26,19 @@ export default async function handler(req, res) {                               
   const data = req.body;  
   //console.log(data)
 
-  await db.push(`/arraytest/myarray[${counter}]`, data , true);
-  
+  const shortenedURL: ShortenedURL = {
+    url: data.redirect,
+    metricsId: generateString(5),                                 
+    redirectId: generateString(5)
+  };
+
+  await db.push(`/arraytest/myarray[${counter}]`, shortenedURL , true);
   counter = counter + 1;
     
   var testString = await db.getData("/arraytest/myarray")
   console.log(testString)
 
-  res.status(200).json({result: "response from create api"})
+  res.status(200).json(shortenedURL)
  
 }
 

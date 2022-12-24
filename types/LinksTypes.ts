@@ -9,7 +9,7 @@ export interface RedirectedLink {
 
 export interface ShortenedURL {
     url: string;
-    metricsId: number;
+    metricsId: string;                              // was a number, changed it to string
     redirectId: string;
   }
 
