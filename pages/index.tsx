@@ -15,7 +15,7 @@ async function submit(input: string,
     lifetime: del_ ? "once" : "infinite",
     collect: metrics ? ["visitors", "os"] : []
   };
-   console.log(payload);
+   //console.log(payload);
   const res = await fetch("/api/links/create", {
     method: 'POST',
     headers: {
