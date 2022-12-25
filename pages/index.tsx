@@ -1,37 +1,43 @@
 import { Button, FormControlLabel, FormGroup, Switch, TextField, Typography } from '@mui/material';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useState } from 'react';
+import { RedirectedLink } from '../types/LinksTypes'
+import { useRouter } from 'next/router'
 
-function submit(input: String,
+
+async function submit(input: string,
   metrics: boolean,
   del_: boolean,
+  router: any,
   setResponse: (s: any) => void) {
-  const payload = {
+  const payload: RedirectedLink = {
     redirect: input,
     lifetime: del_ ? "once" : "infinite",
     collect: metrics ? ["visitors", "os"] : []
   };
-  console.log(payload);
-  fetch("/api/links/create", {
+   //console.log(payload);
+  const res = await fetch("/api/links/create", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload)
-  }).then(res => {
-    if (res.status == 200)
-      res.json()
-    else
-      setResponse({})
-  }).then(res =>
-    setResponse(res)
-  );
+  })
+
+  const data = await res.json();
+  console.log(data)
+
+
+  
+  //router.push('/createLink?id=1')                                           // just changes the view to another /xyz and doesnt ask the server for another route like in express ??
+  
 }
 
-export default function Home() {
-  const [urlInput, setUrlInput] = useState<String>("");
+export default function Home() {                                                                           //  Home() is a function component in React
+  const [urlInput, setUrlInput] = useState<string>("");
   const [metricSwitch, setMetricSwitch] = useState<boolean>(false);
   const [deleteSwitch, setDeleteSwitch] = useState<boolean>(false);
+  const router = useRouter()                                                                               // useRouter() has to be defined under a function component
 
   return (
     <main className="w-screen h-screen">
@@ -61,7 +67,7 @@ export default function Home() {
             />
           </div>
           <Button variant="text" size='medium'
-            onClick={() => { submit(urlInput, metricSwitch, deleteSwitch, (item) => { console.log("Recv", item) }) }}>
+            onClick={() => { submit(urlInput, metricSwitch, deleteSwitch, router, (item) => { console.log("Recv", item) }) }}>                      
             <KeyboardDoubleArrowRightIcon />
             Go
           </Button>
@@ -78,7 +84,7 @@ export default function Home() {
                 onChange={(event) => setDeleteSwitch(event.target.checked)} />
             }
               label="Delete after open" />
-          </FormGroup>
+          </FormGroup>      
         </div>
       </div>
     </main>
