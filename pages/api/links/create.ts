@@ -6,11 +6,14 @@ import { RedirectedLink, ShortenedURL } from '../../../types/LinksTypes'
 import { JsonDB, Config } from 'node-json-db';
 export let db = new JsonDB(new Config("myLinksDataBase", true, false, '/'));
 
-
-
 // random number gen  (copied form internet :D)
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 let counter = 1;
+
+
+
+
+
 
 async function generateString(length: number) {
     let result = ' ';
@@ -33,16 +36,14 @@ async function generateString(length: number) {
     counter = counter + 1;
 
     var testString = await db.getData("/testStringDB")
-    console.log(testString)
+    //console.log(testString)
 
     return result;
 }
 
-
-
-export default async function handler(req, res) {                                         // I had to add "async" here so that "await" for db.push works 2 lines below
+export default async function handler(req, res) {                                         
   const data = req.body;  
-  //  console.log(data)
+  //console.log(data)
 
   //await db.delete("/");                                          // for cleaning up
 
@@ -58,12 +59,31 @@ export default async function handler(req, res) {                               
   
   await db.push(`/testURLDB/${data.redirect}`, shortenedURL , true);
      
-  // var testString = await db.getData("/")
-  // console.log(testString)
+   var testString = await db.getData("/")
+   console.log(testString)
   
   res.status(200).json(shortenedURL)
- 
+  //console.log(shortenedURL)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
