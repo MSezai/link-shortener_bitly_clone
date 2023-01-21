@@ -2,7 +2,7 @@
 import { Button, FormControlLabel, FormGroup, Switch, TextField, Typography } from '@mui/material';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useRouter } from 'next/router'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -16,6 +16,8 @@ export default function CreateLink() {
     const router = useRouter()  
     const {redirectId} = router.query
     const [url, setURL] = useState(null);
+    const [data, setData] = useState(null);
+
     
 
     async function fetchLink(redirectId) {
@@ -41,12 +43,10 @@ export default function CreateLink() {
           metricID: XXX
         </div>
         <br />
-        <br />       
-        <Button variant="text" size='medium'
-            onClick={() => { fetchLink(redirectId) }}>                      
-            <KeyboardDoubleArrowRightIcon />
-            Fetch the link
-        </Button>
+        <br />   
+        <button variant="text" size='medium'
+            onClick={fetchLink(redirectId) }>                  
+        </button>
         <br />
         <br />
         <Button variant="text" size='medium'

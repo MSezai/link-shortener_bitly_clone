@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     let res1 = 'fake res'
 
     var testString = await db.getData("/testURLDB")
-    console.log(testString)
+    //console.log(testString)
 
     for (const key in testString) {
 
