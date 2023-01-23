@@ -16,6 +16,6 @@
     "incremental": true
    // "topLevelAwait":true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/r/[slug].js", "pages/r/[redirId].js"],
   "exclude": ["node_modules"]
 }

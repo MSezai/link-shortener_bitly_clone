@@ -3,7 +3,7 @@ import { Button, FormControlLabel, FormGroup, Switch, TextField, Typography } fr
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
-
+import Link from 'next/link'
 
 
 function goHome(router){
@@ -16,7 +16,7 @@ export default function CreateLink() {
     const router = useRouter()  
     const {redirectId} = router.query
     const [url, setURL] = useState(null);
-    const [data, setData] = useState(null);
+    
 
     
 
@@ -34,19 +34,24 @@ export default function CreateLink() {
       setURL(data)
     }
     
-
+    
     return (     
       <div>
+        
         <div>
-          shortened URL: localhost:3000/{redirectId}   <br />
-          redirect to:    {url}              <br />
+          shortened URL:  {redirectId}<br />
+          <Link href={`/${redirectId}`}><em>click to go to http://localhost:3000/{redirectId}</em></Link> <br />
+          origilan url:    {url}              <br />
           metricID: XXX
         </div>
         <br />
         <br />   
-        <button variant="text" size='medium'
-            onClick={fetchLink(redirectId) }>                  
-        </button>
+        
+        <Button variant="text" size='medium'
+            onClick={() => {fetchLink(redirectId) }}>                      
+            <KeyboardDoubleArrowRightIcon />
+            fetch link
+        </Button>
         <br />
         <br />
         <Button variant="text" size='medium'

@@ -30,7 +30,7 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
   
     router.push({
       pathname: '/createLink',
-      query: { redirectId: data.redirectId },
+      query: { redirectId: data.redirectId }
   })                                        
   
 }

@@ -12,7 +12,7 @@ let counter = 1;
 
 
 async function generateString(length: number) {
-    let result = ' ';
+    let result = '';
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -39,11 +39,12 @@ async function generateString(length: number) {
 
 export default async function handler(req, res) {                                         
   const data = req.body;  
-  //console.log(data)
+  console.log(data)
 
   //await db.delete("/");                                          // for cleaning up
 
 
+  // IMPORTANT: add control here: if the url is already in the DB, dont generate new metricsId or redirectId!!
   const string1 = await generateString(5);
   const string2 = await generateString(5);
 
@@ -56,7 +57,7 @@ export default async function handler(req, res) {
   await db.push(`/testURLDB/${data.redirect}`, shortenedURL , true);
      
   var testString = await db.getData("/")
- // console.log(testString)
+  console.log(testString)
   
   res.status(200).json(shortenedURL)
   //console.log(shortenedURL)
