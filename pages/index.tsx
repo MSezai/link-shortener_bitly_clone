@@ -5,17 +5,16 @@ import { RedirectedLink } from '../types/LinksTypes'
 import { useRouter } from 'next/router'
 
 
-async function submit(input: string,
-  metrics: boolean,
-  del_: boolean,
-  router: any,
-  setResponse: (s: any) => void) {
+async function submit(input: string, metrics: boolean, del_: boolean, router: any, setResponse: (s: any) => void) {
+
   const payload: RedirectedLink = {
     redirect: input,
     lifetime: del_ ? "once" : "infinite",
     collect: metrics ? ["visitors", "os"] : []
   };
+
    //console.log(payload);
+
   const res = await fetch("/api/links/create", {
     method: 'POST',
     headers: {
@@ -27,13 +26,16 @@ async function submit(input: string,
   const data = await res.json();
   console.log(data)
 
-
   
-  //router.push('/createLink?id=1')                                           // just changes the view to another /xyz and doesnt ask the server for another route like in express ??
+  
+    router.push({
+      pathname: '/createLink',
+      query: { redirectId: data.redirectId },
+  })                                        
   
 }
 
-export default function Home() {                                                                           //  Home() is a function component in React
+export default function Home() {                                                                         
   const [urlInput, setUrlInput] = useState<string>("");
   const [metricSwitch, setMetricSwitch] = useState<boolean>(false);
   const [deleteSwitch, setDeleteSwitch] = useState<boolean>(false);
@@ -43,7 +45,7 @@ export default function Home() {                                                
     <main className="w-screen h-screen">
       <div className="w-full h-full flex flex-col align-items-center justify-center gap-5">
         <div className="flex justify-center">
-          <Typography variant='h3'
+          <Typography variant='h4'
             sx={{
               backgroundcolor: "primary",
               backgroundImage: `linear-gradient(45deg, #5514B4, #FF80FF)`,
