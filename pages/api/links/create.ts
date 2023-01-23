@@ -4,44 +4,59 @@ import { RedirectedLink, ShortenedURL } from '../../../types/LinksTypes'
 
 // node-json-db
 import { JsonDB, Config } from 'node-json-db';
+import { shouldForwardProp } from '@mui/styled-engine';
 export let db = new JsonDB(new Config("myLinksDataBase", true, false, '/'));
 
 // random number gen  (copied form internet :D)
-const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 let counter = 1;
 
 
 async function generateString(length: number) {
+<<<<<<< HEAD
     let result = '';
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     // add a check here to control that the generated number is not the same with the ones before, use maybe the db
+=======
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  // add a check here to control that the generated number is not the same with the ones before, use maybe the db
+>>>>>>> 8f8b66b7893163053fe56a4238c581e23f2bda20
 
-    await db.push(`/testStringDB[0]`, "fake string", true);                  // to initialize the testStringDB[0]
-    var testString = await db.getData("/testStringDB");
-    
-    if( !testString.includes(result) ){
-      await db.push(`/testStringDB[${counter}]`, result, true); 
-    } else {
-      console.log("this string exists in the array already!")                 // ToDO: add something here like repeat from beginning
-    }
+  await db.push(`/testStringDB[0]`, "fake string", true);                  // to initialize the testStringDB[0]
+  var testString = await db.getData("/testStringDB");
+
+  if (!testString.includes(result)) {
+    await db.push(`/testStringDB[${counter}]`, result, true);
+  } else {
+    console.log("this string exists in the array already!")                 // ToDO: add something here like repeat from beginning
+  }
 
 
-    counter = counter + 1;
+  counter = counter + 1;
 
-    var testString = await db.getData("/testStringDB")
-    //console.log(testString)
+  var testString = await db.getData("/testStringDB")
+  //console.log(testString)
 
-    return result;
+  return result;
 }
 
+<<<<<<< HEAD
 export default async function handler(req, res) {                                         
   const data = req.body;  
   console.log(data)
+=======
+export default async function handler(req, res) {
+  const data = req.body;
+  //console.log(data)
+>>>>>>> 8f8b66b7893163053fe56a4238c581e23f2bda20
 
-  //await db.delete("/");                                          // for cleaning up
 
 
   // IMPORTANT: add control here: if the url is already in the DB, dont generate new metricsId or redirectId!!
@@ -50,15 +65,20 @@ export default async function handler(req, res) {
 
   const shortenedURL: ShortenedURL = {
     url: data.redirect,
-    metricsId: string1,                                 
-    redirectId: string2 
-  }                                      
-  
-  await db.push(`/testURLDB/${data.redirect}`, shortenedURL , true);
-     
+    metricsId: string1,
+    redirectId: string2
+  }
+
+  await db.push(`/testURLDB/${data.redirect}`, shortenedURL, true);
+
   var testString = await db.getData("/")
+<<<<<<< HEAD
   console.log(testString)
   
+=======
+  // console.log(testString)
+
+>>>>>>> 8f8b66b7893163053fe56a4238c581e23f2bda20
   res.status(200).json(shortenedURL)
   //console.log(shortenedURL)
 }
@@ -101,8 +121,8 @@ async function generateUniqueString(): Promise<string> {
   var testString1 = await db.getData("/arraytest/randomStrings")
   console.log(testString1)
 
-  
-  
+
+
   return newString
 }
 
