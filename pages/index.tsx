@@ -24,9 +24,8 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
   })
 
   const data = await res.json();
-  console.log(data)
-
-  
+  //console.log(data)
+ 
   
     router.push({
       pathname: '/createLink',
@@ -34,6 +33,10 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
   })                                        
   
 }
+
+
+
+
 
 export default function Home() {                                                                         
   const [urlInput, setUrlInput] = useState<string>("");

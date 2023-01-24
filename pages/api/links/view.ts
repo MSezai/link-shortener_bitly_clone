@@ -22,9 +22,9 @@ export default async function handler(req, res) {
 
     for (const key in testString) {
 
-        console.log(`key is: ${key}:`);
+        //console.log(`key is: ${key}:`);
         let obj = testString[key]
-        console.log(obj.redirectId)
+        //console.log(obj.redirectId)
         if (obj.redirectId == data1) {
             res2 = obj.url
         }
@@ -33,5 +33,5 @@ export default async function handler(req, res) {
    console.log('fetched url of the redirectID is : ', res2)
     
     res.status(200).json(res2) 
-    //console.log(res)
+   
 }

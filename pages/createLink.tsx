@@ -16,6 +16,7 @@ export default function CreateLink() {
     const router = useRouter()  
     const {redirectId} = router.query
     const [url, setURL] = useState(null);
+    const [link, setLink] = useState(null);
     
 
     
@@ -33,6 +34,14 @@ export default function CreateLink() {
       console.log('fetched data is:', data)
       setURL(data)
     }
+    //fetchLink(redirectId)
+
+    useEffect(() => {
+      fetch('https://dog.ceo/api/breeds/image/random')
+      .then(response => response.json())
+      .then(json => console.log(json))
+    }, [])
+
     
     
     return (     
@@ -41,12 +50,12 @@ export default function CreateLink() {
         <div>
           shortened URL:  {redirectId}<br />
           <Link href={`/${redirectId}`}><em>click to go to http://localhost:3000/{redirectId}</em></Link> <br />
-          origilan url:    {url}              <br />
+          original url:    {url}              <br />
           metricID: XXX
         </div>
         <br />
         <br />   
-        
+              
         <Button variant="text" size='medium'
             onClick={() => {fetchLink(redirectId) }}>                      
             <KeyboardDoubleArrowRightIcon />
