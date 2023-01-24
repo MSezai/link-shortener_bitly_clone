@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 export default function Post()  {
   const router = useRouter()
   const [url1, setURL1] = useState(null)
-  const [dogURL, setDogURL] = useState("https://images.dog.ceo/breeds/african/n02116738_6283.jpg")
+ 
   const { redirId } = router.query
 
   console.log("redirId is: ", redirId)
@@ -23,6 +23,7 @@ export default function Post()  {
   }
 
   
+
   async function fetchLink(redirId) {
     const res = await fetch("/api/links/view", {
       method: 'POST',
@@ -35,44 +36,47 @@ export default function Post()  {
     const data = await res.json();
     console.log('fetched data is:', data)
     setURL1(data)
+    setTimeout(() => { 
+      console.log("!!! url1: ", url1)
+      window.location.assign(`https://${url1}`)
+    }, 5000); 
   }
  
-  //fetchLink(redirId)
 
-  useEffect((url1) => {
+  useEffect(() => {
     console.log("helllooo")
-    //console.log(url1)
-    fetch('https://dog.ceo/api/breeds/image/random')
-    .then(response => response.json())
-    .then(json => setDogURL(json))
+    console.log("redirect to the url: ", url1)
+
+    fetchLink(redirId)
+
+    console.log("redirect to the url: ", url1)
 
    // console.log(dogURL)
     let ext = "questions/503093/"
     
-    setTimeout(() => { window.location.replace(`https://stackoverflow.com/${ext}`);}, 5000);  
+    // setTimeout(() => { 
+    //   console.log("!!! url1: ", url1)
+    //   window.location.href = url1
+    // }, 5000);  
       
-  }, [])
-
-  console.log("dog url = ", dogURL)
+  }, [url1, redirId])
 
 
   return (
     <div>
       <p>shortened link: {redirId}</p>
       <p>original link: {url1} </p>
-      <Button variant="text" size='medium'
+      {/* <Button variant="text" size='medium'
             onClick={() => {fetchLink(redirId) }}>                      
             <KeyboardDoubleArrowRightIcon />
             fetch original link
-        </Button>
+        </Button> */}
       <Button variant="text" size='medium'
             onClick={() => { goHome(router) }}>                      
             <KeyboardDoubleArrowRightIcon />
             Go to Homepage
         </Button>
-      <div>
-        <img src={dogURL.message} alt="dog pic" />
-      </div>
+     
     </div>
   
   ) 

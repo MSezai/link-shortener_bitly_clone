@@ -15,12 +15,12 @@ function goHome(router){
 export default function CreateLink() {
     const router = useRouter()  
     const {redirectId} = router.query
+    const [redirectID, setRedirectID] = useState(redirectId) 
     const [url, setURL] = useState(null);
     const [link, setLink] = useState(null);
     
 
     
-
     async function fetchLink(redirectId) {
       const res = await fetch("/api/links/view", {
         method: 'POST',
@@ -29,38 +29,33 @@ export default function CreateLink() {
         },
         body: JSON.stringify(redirectId)
       })
-    
+  
       const data = await res.json();
       console.log('fetched data is:', data)
       setURL(data)
     }
-    //fetchLink(redirectId)
 
-    useEffect(() => {
-      fetch('https://dog.ceo/api/breeds/image/random')
-      .then(response => response.json())
-      .then(json => console.log(json))
-    }, [])
-
-    
-    
+      useEffect(() =>{
+        fetchLink(redirectId)
+      }, [redirectID])
+  
+  
     return (     
-      <div>
-        
+      <div>        
         <div>
-          shortened URL:  {redirectId}<br />
-          <Link href={`/${redirectId}`}><em>click to go to http://localhost:3000/{redirectId}</em></Link> <br />
+          shortened URL:  http://localhost:3000/{redirectId}<br /> <br />
+          <Link href={`/${redirectId}`}><em>click to check if it works: http://localhost:3000/{redirectId}</em></Link> <br /><br />
           original url:    {url}              <br />
           metricID: XXX
         </div>
         <br />
         <br />   
-              
+{/*               
         <Button variant="text" size='medium'
             onClick={() => {fetchLink(redirectId) }}>                      
             <KeyboardDoubleArrowRightIcon />
             fetch link
-        </Button>
+        </Button> */}
         <br />
         <br />
         <Button variant="text" size='medium'
@@ -69,10 +64,12 @@ export default function CreateLink() {
             Go to Homepage
         </Button>
         <br />
-        <br />
-    
-      </div>
-     
+        <br />    
+      </div>     
     )
   }
+  
+
+
+
   

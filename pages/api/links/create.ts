@@ -4,8 +4,12 @@ import { RedirectedLink, ShortenedURL } from '../../../types/LinksTypes'
 
 // node-json-db
 import { JsonDB, Config } from 'node-json-db';
-import { shouldForwardProp } from '@mui/styled-engine';
 export let db = new JsonDB(new Config("myLinksDataBase", true, false, '/'));
+
+//json-server
+
+
+
 
 // random number gen  (copied form internet :D)
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -40,10 +44,9 @@ async function generateString(length: number) {
 
 export default async function handler(req, res) {                                         
   const data = req.body;  
-  //console.log(data)
+  console.log("data received by createa api:", data)
 
-
-
+ 
   // IMPORTANT: add control here: if the url is already in the DB, dont generate new metricsId or redirectId!!
   const string1 = await generateString(5);
   const string2 = await generateString(5);
@@ -57,12 +60,13 @@ export default async function handler(req, res) {
   await db.push(`/testURLDB/${data.redirect}`, shortenedURL, true);
 
   var testString = await db.getData("/")
-  //console.log(testString)
+  console.log(testString)
+  
   //await db.delete("/");
 
 
   res.status(200).json(shortenedURL)
-  //console.log("response from create API: shortened link: ", shortenedURL)
+  console.log("response from create API: shortened link: ", shortenedURL)
 }
 
 
