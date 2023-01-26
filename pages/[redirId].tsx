@@ -26,9 +26,6 @@ export default function Post()  {
   // .then(res => res.json())
   // .then(data => setDogURL(data.message))
   
- 
-  
-
   async function fetchLink(redirId) {
     const res = await fetch("/api/links/view", {
       method: 'POST',
@@ -73,7 +70,8 @@ export default function Post()  {
           <div  className="flex justify-center">
           Original link: {url1}
           </div> <br /> <br />
-          {/* <img src={dog_url} alt="dog picture" /> */}
+          <div className="flex justify-center"> <img src="https://random.imagecdn.app/v1/image?width=500&height=150" alt="dog picture"  /></div>
+         
           <div className="flex justify-center"> 
           You will be redirected in {counter} seconds... 
           </div> <br />
@@ -85,6 +83,7 @@ export default function Post()  {
                 Go to Homepage
           </Button>  
       </div>
+      
     </main>
   ) 
 }
