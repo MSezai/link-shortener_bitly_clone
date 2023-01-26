@@ -24,22 +24,24 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
   })
 
   const data = await res.json();
-  console.log(data)
-
-  
+  //console.log(data)
+ 
   
     router.push({
       pathname: '/createLink',
-      query: { redirectId: data.redirectId },
+      query: { redirectId: data.redirectId }
   })                                        
   
 }
+
 
 export default function Home() {                                                                         
   const [urlInput, setUrlInput] = useState<string>("");
   const [metricSwitch, setMetricSwitch] = useState<boolean>(false);
   const [deleteSwitch, setDeleteSwitch] = useState<boolean>(false);
-  const router = useRouter()                                                                               // useRouter() has to be defined under a function component
+  const router = useRouter()  
+
+
 
   return (
     <main className="w-screen h-screen">

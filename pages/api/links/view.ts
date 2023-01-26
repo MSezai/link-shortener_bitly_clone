@@ -7,30 +7,43 @@ import { JsonDB, Config } from 'node-json-db';
 export let db = new JsonDB(new Config("myLinksDataBase", true, false, '/'));
 
 
-export default async function handler(req, res) {    
+export default async function handler(req, response) {    
 
-    const data = req.body;  
-    console.log(data)                                
+    let data1 = req.body;  
+    console.log("data received by view API:", data1)                                
+ 
+     
+    let res2 = 'fake res'
+    await db.reload();
+
+//    var testString2 = await db.getData("/testURLDB")
+
+    // db.getData("/testURLDB")
+    // .then(res => { 
+    //     console.log("res esittir: ", res)
+    //     for (const key in res) {
+
+    //         //console.log(`key is: ${key}:`);
+    //         let obj = res[key]
+    //         //console.log(obj.redirectId)
+    //         if (obj.redirectId == data1) {
+    //             res2 = obj.url
+    //         }
+    //     }
+
+    db.getData(`/testURLDB/${data1}`)
+        .then(res => { 
+            console.log("res esittir: ", res)
+            res2 = res.url
+            response.status(200).json(res2) 
+            console.log('data sent my view API is: ', res2)
+        })
+    //console.log(testString2)
+
+   
     
-    //await db.push(`/testURLDB/${data.redirect}`, shortenedURL , true);
-        
-    let res1 = 'fake res'
-
-    var testString = await db.getData("/testURLDB")
-    //console.log(testString)
-
-    for (const key in testString) {
-
-        console.log(`${key}:`);
-        let obj = testString[key]
-        console.log(obj.redirectId)
-        if (obj.redirectId == data) {
-            res1 = obj.url
-        }
-    }
+   //console.log('data sent my view API is: ', res2)
     
-    console.log('fetched url of the redirectID is : ', res1)
-    
-    res.status(200).json(res1) 
-    //console.log(res)
+  //  res.status(200).json(res2) 
+   
 }
