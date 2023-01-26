@@ -17,7 +17,7 @@ export default function CreateLink() {
     const {redirectId} = router.query
     const [redirectID, setRedirectID] = useState(redirectId) 
     const [url, setURL] = useState(null);
-    const [link, setLink] = useState(null);
+   
     
 
     
@@ -36,36 +36,45 @@ export default function CreateLink() {
     }
 
       useEffect(() =>{
-        fetchLink(redirectId)
+        fetchLink(redirectID)
       }, [redirectID])
   
   
-    return (     
-      <div>        
-        <div>
-          shortened URL:  http://localhost:3000/{redirectId}<br /> <br />
-          <Link href={`/${redirectId}`}><em>click to check if it works: http://localhost:3000/{redirectId}</em></Link> <br /><br />
-          original url:    {url}              <br />
-          metricID: XXX
-        </div>
-        <br />
-        <br />   
-{/*               
-        <Button variant="text" size='medium'
-            onClick={() => {fetchLink(redirectId) }}>                      
-            <KeyboardDoubleArrowRightIcon />
-            fetch link
-        </Button> */}
-        <br />
-        <br />
-        <Button variant="text" size='medium'
-            onClick={() => { goHome(router) }}>                      
-            <KeyboardDoubleArrowRightIcon />
-            Go to Homepage
-        </Button>
-        <br />
-        <br />    
-      </div>     
+    return (  
+      <main className="w-screen h-screen">
+        <div className="w-full h-full flex flex-col align-items-center justify-center gap-5">  
+            <div>
+              <div className="flex justify-center">
+                Here is your shortened URL:  http://localhost:3002/{redirectId}
+              </div>
+              <br />
+              <br />
+              <div className="flex justify-center">
+                <Link href={`/${redirectId}`}>Click to check if it works: <em> http://localhost:3002/{redirectId}</em></Link>
+              </div> 
+              <br />
+              <br />
+              <div className="flex justify-center">
+                Original URL:    {url}              <br />
+                MetricID: XXX
+                </div>
+            </div>
+            <br />
+            <br />   
+
+            <br />
+            <br />
+            <Button variant="text" size='medium'
+                onClick={() => { goHome(router) }}>                      
+                <KeyboardDoubleArrowRightIcon />
+                Go to Homepage
+            </Button>
+            <br />
+            <br />    
+              
+        </div>    
+      </main>   
+      
     )
   }
   

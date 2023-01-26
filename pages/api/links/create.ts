@@ -16,6 +16,7 @@ const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 let counter = 1;
 
 
+
 async function generateString(length: number) {
     let result = '';
     const charactersLength = characters.length;
@@ -57,7 +58,9 @@ export default async function handler(req, res) {
     redirectId: string2
   }
 
-  await db.push(`/testURLDB/${data.redirect}`, shortenedURL, true);
+  //await db.push(`/testURLDB/${data.redirect}`, shortenedURL, true);
+  await db.push(`/testURLDB/${string2}`, shortenedURL, true);
+
 
   var testString = await db.getData("/")
   console.log(testString)
