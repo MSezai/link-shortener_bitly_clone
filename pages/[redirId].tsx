@@ -2,9 +2,13 @@ import { useRouter } from 'next/router'
 import { Button } from '@mui/material';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useState, useEffect } from 'react';
+import Dog_pic from './components/dog_pic'
 
+// let url_dog = ""
 
-    
+//     fetch("https://dog.ceo/api/breeds/image/random")
+//     .then(res => res.json())
+//     .then(data => url_dog = data.message)
 
 
 
@@ -70,11 +74,11 @@ export default function Post()  {
           <div  className="flex justify-center">
           Original link: {url1}
           </div> <br /> <br />
-          <div className="flex justify-center"> <img src="https://random.imagecdn.app/v1/image?width=500&height=150" alt="dog picture"  /></div>
-         
+          {/* <div className="flex justify-center"> <img src={url_dog} alt="dog picture" height="100" width="100" /></div> */}
           <div className="flex justify-center"> 
           You will be redirected in {counter} seconds... 
           </div> <br />
+          <div className="flex justify-center"><Dog_pic/></div>
           
     
           <Button variant="text" size='medium'
