@@ -2,14 +2,7 @@ import { useRouter } from 'next/router'
 import { Button } from '@mui/material';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useState, useEffect } from 'react';
-import Dog_pic from './components/dog_pic'
-
-// let url_dog = ""
-
-//     fetch("https://dog.ceo/api/breeds/image/random")
-//     .then(res => res.json())
-//     .then(data => url_dog = data.message)
-
+import Dog_pic from './components/Dog_pic'
 
 
 
@@ -17,8 +10,6 @@ export default function Post()  {
   const router = useRouter()
   const [url1, setURL1] = useState(null)
   const [counter, setCounter] = useState(5)
- // const [dog_url, setDogURL] = useState("https://images.dog.ceo/breeds/basenji/n02110806_3006.jpg")
- 
   const { redirId } = router.query
   console.log("redirId is: ", redirId)
 
@@ -26,10 +17,7 @@ export default function Post()  {
     router.push('./')  
   }
 
-  // fetch("https://dog.ceo/api/breeds/image/random")
-  // .then(res => res.json())
-  // .then(data => setDogURL(data.message))
-  
+
   async function fetchLink(redirId) {
     const res = await fetch("/api/links/view", {
       method: 'POST',
@@ -74,7 +62,7 @@ export default function Post()  {
           <div  className="flex justify-center">
           Original link: {url1}
           </div> <br /> <br />
-          {/* <div className="flex justify-center"> <img src={url_dog} alt="dog picture" height="100" width="100" /></div> */}
+          
           <div className="flex justify-center"> 
           You will be redirected in {counter} seconds... 
           </div> <br />

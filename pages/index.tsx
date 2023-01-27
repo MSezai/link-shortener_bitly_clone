@@ -5,6 +5,7 @@ import { RedirectedLink } from '../types/LinksTypes'
 import { useRouter } from 'next/router'
 
 
+
 async function submit(input: string, metrics: boolean, del_: boolean, router: any, setResponse: (s: any) => void) {
 
   const payload: RedirectedLink = {
