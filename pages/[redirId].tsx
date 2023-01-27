@@ -11,6 +11,8 @@ export default function Post()  {
   const [url1, setURL1] = useState(null)
   const [counter, setCounter] = useState(5)
   const { redirId } = router.query
+
+
   console.log("redirId is: ", redirId)
 
   function goHome(router){  
@@ -31,25 +33,27 @@ export default function Post()  {
     //console.log('fetched data is:', data)
     setURL1(data)
 
-    for(let i = 5; i>0; i--) {
-         setTimeout(() => {           
-          setCounter(counter - 1)
-          if (counter == 2) {
-            window.location.assign(`http://${url1}`)  
-          }          
-        }, 1000); 
-    }    
   }
  
+  useEffect(() => {
+        
+            setTimeout(() => {           
+              setCounter(counter - 1)
+                if (counter == 2) {
+                  window.location.href = `${url1}`
+              }         
+            }, 1000); 
+           
 
+  }, [counter])
 
 
   useEffect(() => {
     console.log("useEffect run")   
-
-    fetchLink(redirId)  
+    
+    fetchLink(redirId)
          
-  }, [url1, redirId, counter])
+  }, [redirId])
 
 
   return (

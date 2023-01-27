@@ -18,18 +18,6 @@ export default async function handler(req, response) {
 
 //    var testString2 = await db.getData("/testURLDB")
 
-    // db.getData("/testURLDB")
-    // .then(res => { 
-    //     console.log("res esittir: ", res)
-    //     for (const key in res) {
-
-    //         //console.log(`key is: ${key}:`);
-    //         let obj = res[key]
-    //         //console.log(obj.redirectId)
-    //         if (obj.redirectId == data1) {
-    //             res2 = obj.url
-    //         }
-    //     }
 
     db.getData(`/testURLDB/${data1}`)
         .then(res => { 
