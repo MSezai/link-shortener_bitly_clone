@@ -19,13 +19,11 @@ export default async function handler(req, response) {
 //    var testString2 = await db.getData("/testURLDB")
 
 
-    db.getData(`/testURLDB/${data1}`)
-        .then(res => { 
-            console.log("res esittir: ", res)
-            res2 = res.url
-            response.status(200).json(res2) 
-            console.log('data sent my view API is: ', res2)
-        })
+    const data = await db.getData(`/testURLDB/${data1}`);
+    console.log("res esittir: ", data)
+    res2 = data.url
+    response.status(200).json(res2) 
+    console.log('data sent my view API is: ', res2)
     //console.log(testString2)
 
    

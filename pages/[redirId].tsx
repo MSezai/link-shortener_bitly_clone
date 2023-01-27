@@ -50,8 +50,9 @@ export default function Post()  {
 
   useEffect(() => {
     console.log("useEffect run")   
-    
-    fetchLink(redirId)
+
+    if(redirId != undefined)
+      fetchLink(redirId)
          
   }, [redirId])
 

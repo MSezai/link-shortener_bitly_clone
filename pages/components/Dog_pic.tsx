@@ -15,7 +15,7 @@ export default function Dog_Pic() {
 
   return (
     <div>       
-       <img src={link} alt="dogggg " />
+       <img src={link} alt="dogggg" className='h-50 w-72'/>
     </div>
   )
 
