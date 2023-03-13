@@ -18,12 +18,12 @@ let counter = 1;
 
 
 async function generateString(length: number) {
-    let result = '';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    // add a check here to control that the generated number is not the same with the ones before, use maybe the db
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  // add a check here to control that the generated number is not the same with the ones before, use maybe the db
 
   await db.push(`/testStringDB[0]`, "fake string", true);                  // to initialize the testStringDB[0]
   var testString = await db.getData("/testStringDB");
@@ -43,11 +43,11 @@ async function generateString(length: number) {
   return result;
 }
 
-export default async function handler(req, res) {                                         
-  const data = req.body;  
+export default async function handler(req: any, res: any) {
+  const data = req.body;
   console.log("data received by createa api:", data)
 
- 
+
   // IMPORTANT: add control here: if the url is already in the DB, dont generate new metricsId or redirectId!!
   const string1 = await generateString(5);
   const string2 = await generateString(5);
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
 
   var testString = await db.getData("/")
   console.log(testString)
-  
+
   //await db.delete("/");
 
 
