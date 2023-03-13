@@ -92,7 +92,7 @@ export default function Home() {
           </FormGroup>
         </div>
         <br /><br /><br />
-        <p>Under development. <br /> To Do's: create and connect MongoDB</p>
+        <p>Under development. <br /> To Dos: create and connect MongoDB</p>
       </div>
     </main>
   )
