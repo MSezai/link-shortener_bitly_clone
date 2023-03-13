@@ -30,7 +30,6 @@ export default function Post() {
     })
 
     const data = await res.json();
-    //console.log('fetched data is:', data)
     setURL1(data)
 
   }
