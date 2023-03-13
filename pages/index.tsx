@@ -91,6 +91,8 @@ export default function Home() {
               label="Delete after open" />
           </FormGroup>
         </div>
+        <br /><br /><br />
+        <p>Under development. <br /> To Do's: create and connect MongoDB</p>
       </div>
     </main>
   )
