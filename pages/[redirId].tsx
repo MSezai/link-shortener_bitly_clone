@@ -15,12 +15,12 @@ export default function Post() {
 
   console.log("redirId is: ", redirId)
 
-  function goHome(router) {
+  function goHome(router: any) {
     router.push('./')
   }
 
 
-  async function fetchLink(redirId: string) {
+  async function fetchLink(redirId: any) {
     const res = await fetch("/api/links/view", {
       method: 'POST',
       headers: {
