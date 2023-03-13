@@ -3,6 +3,7 @@ import { Button, FormControlLabel, FormGroup, Switch, TextField, Typography } fr
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
+import Link from 'next/link'
 
 
 
@@ -15,11 +16,12 @@ function goHome(router){
 export default function CreateLink() {
     const router = useRouter()  
     const {redirectId} = router.query
+    const [redirectID, setRedirectID] = useState(redirectId) 
     const [url, setURL] = useState(null);
-    const [data, setData] = useState(null);
-
+   
     
 
+    
     async function fetchLink(redirectId) {
       const res = await fetch("/api/links/view", {
         method: 'POST',
@@ -28,37 +30,56 @@ export default function CreateLink() {
         },
         body: JSON.stringify(redirectId)
       })
-    
+  
       const data = await res.json();
       console.log('fetched data is:', data)
       setURL(data)
     }
-    
 
-    return (     
-      <div>
-        <div>
-          shortened URL: localhost:3000/{redirectId}   <br />
-          redirect to:    {url}              <br />
-          metricID: XXX
-        </div>
-        <br />
-        <br />   
-        <button variant="text" size='medium'
-            onClick={fetchLink(redirectId) }>                  
-        </button>
-        <br />
-        <br />
-        <Button variant="text" size='medium'
-            onClick={() => { goHome(router) }}>                      
-            <KeyboardDoubleArrowRightIcon />
-            Go to Homepage
-        </Button>
-        <br />
-        <br />
-    
-      </div>
-     
+      useEffect(() =>{
+        fetchLink(redirectID)
+      }, [redirectID])
+  
+  
+    return (  
+      <main className="w-screen h-screen">
+        <div className="w-full h-full flex flex-col align-items-center justify-center gap-5">  
+            <div>
+              <div className="flex justify-center">
+                Here is your shortened URL:  http://localhost:3002/{redirectId}
+              </div>
+              <br />
+              <br />
+              <div className="flex justify-center">
+                <Link href={`/${redirectId}`}>Click to check if it works: <em> http://localhost:3002/{redirectId}</em></Link>
+              </div> 
+              <br />
+              <br />
+              <div className="flex justify-center">
+                Original URL:    {url}              <br />
+                MetricID: XXX
+                </div>
+            </div>
+            <br />
+            <br />   
+
+            <br />
+            <br />
+            <Button variant="text" size='medium'
+                onClick={() => { goHome(router) }}>                      
+                <KeyboardDoubleArrowRightIcon />
+                Go to Homepage
+            </Button>
+            <br />
+            <br />    
+              
+        </div>    
+      </main>   
+      
     )
   }
+  
+
+
+
   

@@ -5,6 +5,7 @@ import { RedirectedLink } from '../types/LinksTypes'
 import { useRouter } from 'next/router'
 
 
+
 async function submit(input: string, metrics: boolean, del_: boolean, router: any, setResponse: (s: any) => void) {
 
   const payload: RedirectedLink = {
@@ -13,7 +14,7 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
     collect: metrics ? ["visitors", "os"] : []
   };
 
-   //console.log(payload);
+  //console.log(payload);
 
   const res = await fetch("/api/links/create", {
     method: 'POST',
@@ -24,22 +25,24 @@ async function submit(input: string, metrics: boolean, del_: boolean, router: an
   })
 
   const data = await res.json();
-  console.log(data)
+  //console.log(data)
 
-  
-  
-    router.push({
-      pathname: '/createLink',
-      query: { redirectId: data.redirectId },
-  })                                        
-  
+
+  router.push({
+    pathname: '/createLink',
+    query: { redirectId: data.redirectId }
+  })
+
 }
 
-export default function Home() {                                                                         
+
+export default function Home() {
   const [urlInput, setUrlInput] = useState<string>("");
   const [metricSwitch, setMetricSwitch] = useState<boolean>(false);
   const [deleteSwitch, setDeleteSwitch] = useState<boolean>(false);
-  const router = useRouter()                                                                               // useRouter() has to be defined under a function component
+  const router = useRouter()
+
+
 
   return (
     <main className="w-screen h-screen">
@@ -63,15 +66,15 @@ export default function Home() {
             <TextField
               defaultValue={urlInput}
               autoFocus={true}
-              placeholder="Input URL"
+              placeholder="Input URL starting with HTTP://"
               onChange={(event) => { setUrlInput(event.target.value) }}
               fullWidth
             />
           </div>
           <Button variant="text" size='medium'
-            onClick={() => { submit(urlInput, metricSwitch, deleteSwitch, router, (item) => { console.log("Recv", item) }) }}>                      
+            onClick={() => { submit(urlInput, metricSwitch, deleteSwitch, router, (item) => { console.log("Recv", item) }) }}>
             <KeyboardDoubleArrowRightIcon />
-            Go
+            Shorten
           </Button>
         </div>
         <div className='flex justify-center'>
@@ -86,7 +89,7 @@ export default function Home() {
                 onChange={(event) => setDeleteSwitch(event.target.checked)} />
             }
               label="Delete after open" />
-          </FormGroup>      
+          </FormGroup>
         </div>
       </div>
     </main>
